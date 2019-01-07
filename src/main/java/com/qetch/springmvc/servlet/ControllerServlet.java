@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.qetch.springmvc.domain.Product;
 import com.qetch.springmvc.form.ProductForm;
 
+/**
+ * servlet的部署描述符web.xml：
+ * <servlet>
+		<servlet-name>controllerServlet</servlet-name>
+		<servlet-class>com.qetch.springmvc.servlet.ControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>controllerServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+ * 或者使用注解：@WebServlet(name = "ControllerServlet", urlPatterns = {"/product_input.action", "/product_save.action"})
+ */
+
+//@WebServlet(name = "ControllerServlet", urlPatterns = {"/product_input.action", "/product_save.action"})
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,9 +63,9 @@ public class ControllerServlet extends HttpServlet {
 		}
 		
 		String dispatchUrl = null;
-		if ("product_input".equals(action)) {
+		if ("product_input.action".equals(action)) {
 			dispatchUrl = "/WEB-INF/jsp/ProductForm.jsp";
-		} else if ("product_save".equals(action)) {
+		} else if ("product_save.action".equals(action)) {
 			dispatchUrl = "/WEB-INF/jsp/ProductDetail.jsp";
 		}
 		
